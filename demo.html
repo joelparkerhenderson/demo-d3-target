@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Demo D3</title>
+<script src="/var/www/cdn/d3/d3.js"></script>
+<style>
+
+.svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.svg-content-responsive {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="svg-container ">
+  <svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 400 400">
+    <circle cx="0" cy="0" r="0"></circle>
+    <circle cx="0" cy="0" r="0"></circle>
+    <circle cx="0" cy="0" r="0"></circle>
+    <circle cx="0" cy="0" r="0"></circle>
+    <circle cx="0" cy="0" r="0"></circle>
+  </svg>
+</div>
+
+<script>
+var stroke_width = 2;
+var margin = stroke_width;
+var width = 400 - (2 * margin);
+var steps = 5;
+var cx = parseInt(width/2);
+var cy = parseInt(width/2);
+var r_min = parseInt(((width/2)/steps)/2);
+var r_max = parseInt(width/2);
+var r_step = parseInt((r_max - r_min)/steps);
+var colors = ["white", "black", "blue", "red", "yellow"]
+d3.selectAll("circle")
+.attr("cx", cx + margin)
+.attr("cy", cy + margin)
+.attr("stroke", "black")
+.attr("stroke-width", stroke_width)
+.attr("fill", function(d, i) { return colors[i]; })
+.attr("r", function(d, i) { return r_max - (r_step * i); });
+</script>
+
+</body>
+</html>
