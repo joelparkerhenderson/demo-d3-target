@@ -3,58 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <title>Demo D3</title>
-<script src="/var/www/cdn/d3/d3.js"></script>
+<script src="assets/scripts/d3/d3.min.js"></script>
 <style>
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.square-center-viewport-container {
+    width: min(100vw, 100vh);
+    height: min(100vw, 100vh);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
 
 .svg-container {
     display: inline-block;
-    position: relative;
+    padding: 10%;
     width: 100%;
-    padding-bottom: 100%; /* aspect ratio */
-    vertical-align: top;
+    height: 100%;
     overflow: hidden;
 }
 
-.svg-content-responsive {
-    display: inline-block;
-    position: absolute;
-    top: 10px;
-    left: 0;
-}
 </style>
 </head>
 
 <body>
 
-<div class="svg-container ">
-  <svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 400 400">
-    <circle cx="0" cy="0" r="0"></circle>
-    <circle cx="0" cy="0" r="0"></circle>
-    <circle cx="0" cy="0" r="0"></circle>
-    <circle cx="0" cy="0" r="0"></circle>
-    <circle cx="0" cy="0" r="0"></circle>
-  </svg>
-</div>
-
+  <div class="square-center-viewport-container">
+    <div class="svg-container">
+      <svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 100 100">
+        <circle cx="0" cy="0" r="0"></circle>
+        <circle cx="0" cy="0" r="0"></circle>
+        <circle cx="0" cy="0" r="0"></circle>
+        <circle cx="0" cy="0" r="0"></circle>
+        <circle cx="0" cy="0" r="0"></circle>
+      </svg>
+    </div>
+  </div>
+  
 <script>
-var stroke_width = 2;
-var margin = stroke_width;
-var width = 400 - (2 * margin);
-var steps = 5;
-var cx = parseInt(width/2);
-var cy = parseInt(width/2);
-var r_min = parseInt(((width/2)/steps)/2);
-var r_max = parseInt(width/2);
-var r_step = parseInt((r_max - r_min)/steps);
-var colors = ["white", "black", "blue", "red", "yellow"]
+let viewBoxWidth = 100; // must match viewBox width
+
+// Diagnostics in case they can help you...
+// let containerRect = d3.select(".svg-container").node().getBoundingClientRect();
+// console.log(containerRect);
+
+// Center the circle within the bounding box
+let cx = parseInt(viewBoxWidth / 2);
+let cy = parseInt(viewBoxWidth / 2);
+
+// Configure each target ring
+let colors = ["white", "black", "blue", "red", "yellow"];
+let steps = colors.length;
+
+// Stroke each target ring
+let stroke = "black";
+let strokeWidth = 1;
+
+// Set the circle radius to fit the edge of the bounding box
+let radius = parseInt(viewBoxWidth / 2) - (strokeWidth * 2);
+let radiusStep = parseInt(radius / steps);
 
 d3.selectAll("circle")
-.attr("cx", cx + margin)
-.attr("cy", cy + margin)
-.attr("stroke", "black")
-.attr("stroke-width", stroke_width)
+.attr("cx", cx)
+.attr("cy", cy)
+.attr("stroke", stroke)
+.attr("stroke-width", strokeWidth)
 .attr("fill", function(d, i) { return colors[i]; })
-.attr("r", function(d, i) { return r_max - (r_step * i); });
+.attr("r", function(d, i) { return radius - (radiusStep * i); });
 
 </script>
 
