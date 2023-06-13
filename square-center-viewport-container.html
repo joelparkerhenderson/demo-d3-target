@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Container square in the center of the viewport</title>
+<script src="assets/scripts/d3/d3.min.js"></script>
+<style>
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.square-center-viewport-container {
+    width: min(100vw, 100vh);
+    height: min(100vw, 100vh);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="square-center-viewport-container" style="border:2px solid black"></div>
+
+</body>
+</html>
